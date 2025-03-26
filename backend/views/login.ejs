@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background: linear-gradient(to right, black, grey);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .login-container h2 {
+            color: white;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            padding: 8px;
+            width: 100%;
+        }
+
+        .input-group i {
+            margin-right: 10px;
+            color: #555;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-size: 14px;
+        }
+
+        .login-btn {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-btn:hover {
+            background: darkorange;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="https://i.pinimg.com/736x/7b/8c/d8/7b8cd8b068e4b9f80b4bcf0928d7d499.jpg" alt="User Avatar">
+        
+        <h2>Login</h2>
+
+        <!-- Login Form -->
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <i>👤</i>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group">
+                <i>🔒</i>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="remember-forgot">
+                <label><input type="checkbox" name="remember"> Remember me</label>
+                <a href="#" style="color: white;">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>
