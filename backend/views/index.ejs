@@ -157,7 +157,7 @@
                 <a href="/results">Deals</a>
                 <a href="#">Contact Us</a>
             </nav>
-            <a href="/backend/views/login.ejs" class="sign-in">Sign In</a>
+            <a href="/login" class="sign-in">Sign In</a>
         </div>
     </header>
 
@@ -176,23 +176,31 @@
 
         <!-- Categories Section -->
         <section class="categories">
-            <% categories.forEach(category => { %>
-                <div class="category"><%= category.emoji %> <%= category.name %></div>
-            <% }) %>
+            <% if (categories && categories.length) { %>
+                <% categories.forEach(category => { %>
+                    <div class="category"><%= category.emoji %> <%= category.name %></div>
+                <% }) %>
+            <% } else { %>
+                <p>No categories available</p>
+            <% } %>
         </section>
 
         <!-- Deal of the Day -->
         <section class="deals">
             <h2>Deal of the Day</h2>
             <div class="product-list">
-                <% products.forEach(product => { %>
-                    <div class="product-card">
-                        <img src="<%= product.image %>" alt="<%= product.name %>">
-                        <h3><%= product.name %></h3>
-                        <p>$<%= product.price %> <span class="discount">$<%= product.originalPrice %></span></p>
-                        <button class="add-to-cart">Explore more</button>
-                    </div>
-                <% }) %>
+                <% if (products && products.length) { %>
+                    <% products.forEach(product => { %>
+                        <div class="product-card">
+                            <img src="<%= product.image %>" alt="<%= product.name %>">
+                            <h3><%= product.name %></h3>
+                            <p>$<%= product.price %> <span class="discount">$<%= product.originalPrice %></span></p>
+                            <button class="add-to-cart">Explore more</button>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No products available</p>
+                <% } %>
             </div>
         </section>
     </main>

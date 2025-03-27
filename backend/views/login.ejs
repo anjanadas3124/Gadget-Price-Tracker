@@ -5,105 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
+        /* General Styles */
         body {
-            background: linear-gradient(to right, black, grey);
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
         }
 
         .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            background-color: white;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 350px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
 
-        .login-container img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
+        h2 {
+            margin-bottom: 20px;
         }
 
-        .login-container h2 {
-            color: white;
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
         }
 
-        .input-group {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 8px;
-            margin: 10px 0;
-            border-radius: 5px;
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .input-group input {
-            border: none;
-            outline: none;
-            padding: 8px;
+        input {
             width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        .input-group i {
-            margin-right: 10px;
-            color: #555;
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            color: white;
+        .error-message {
+            color: red;
             font-size: 14px;
+            margin-top: 5px;
         }
 
         .login-btn {
-            background: orange;
-            color: white;
+            background-color: #f1c40f;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
             border: none;
             padding: 10px;
             width: 100%;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            margin-top: 10px;
         }
 
         .login-btn:hover {
-            background: darkorange;
+            background-color: #d4a00f;
+        }
+
+        .signup-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <img src="https://i.pinimg.com/736x/7b/8c/d8/7b8cd8b068e4b9f80b4bcf0928d7d499.jpg" alt="User Avatar">
-        
+        <%- include('partials/navbar') %>
         <h2>Login</h2>
 
-        <!-- Login Form -->
+        <% if (errorMessage) { %>
+            <p class="error-message"><%= errorMessage %></p>
+        <% } %>
+
         <form action="/login" method="POST">
-            <div class="input-group">
-                <i>👤</i>
-                <input type="text" name="username" placeholder="Username" required>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
             </div>
 
-            <div class="input-group">
-                <i>🔒</i>
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-
-            <div class="remember-forgot">
-                <label><input type="checkbox" name="remember"> Remember me</label>
-                <a href="#" style="color: white;">Forgot Password?</a>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
             </div>
 
             <button type="submit" class="login-btn">Login</button>
         </form>
+
+        <p class="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
     </div>
 
 </body>
