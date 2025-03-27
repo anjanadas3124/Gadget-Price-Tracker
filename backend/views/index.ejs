@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gadget Price Tracker</title>
+    <title><%= title %></title>
     <style>
         /* General Styles */
         body {
@@ -27,19 +27,11 @@
             font-size: 24px;
             font-weight: bold;
         }
-        .navbar nav {
-            display: flex;
-            align-items: center;
-        }
         .navbar nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 18px;
-        }
-        .navbar nav a:hover {
-            text-decoration: underline;
-            color: #f1c40f;
         }
         .sign-in {
             background-color: #f1c40f;
@@ -47,48 +39,39 @@
             border-radius: 5px;
             color: black;
             font-weight: bold;
-            transition: 0.3s;
             text-decoration: none;
-        }
-        .sign-in:hover {
-            background-color: #e2b007;
         }
 
         /* Hero Section */
         .hero {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 50px;
             background-color: #222;
             color: white;
             flex-wrap: wrap;
+            text-align: center;
         }
         .hero-content {
             flex: 1;
             max-width: 50%;
             text-align: left;
         }
-        .hero-image {
-            flex: 1;
-            max-width: 50%;
-            display: flex;
-            justify-content: center;
-        }
-        .hero img {
+        .hero-image img {
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
             height: auto;
+            border-radius: 10px;
         }
         .cta-button {
             background-color: #f1c40f;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
             font-size: 16px;
-        }
-        .cta-button:hover {
-            background-color: #e2b007;
+            font-weight: bold;
         }
 
         /* Categories */
@@ -96,26 +79,21 @@
             display: flex;
             justify-content: center;
             padding: 20px;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
         .category {
             background-color: #fff;
             padding: 10px 20px;
-            margin: 5px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-        }
-        .category:hover {
-            background-color: #f1c40f;
-            color: black;
-            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Deals Section */
         .deals {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
         .product-list {
@@ -123,42 +101,47 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
+            margin-top: 20px;
         }
         .product-card {
             background-color: white;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             flex: 1 1 250px;
             max-width: 300px;
         }
         .product-card img {
-            width: 100px;
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
         }
-        .add-to-cart {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 3px;
-        }
-        .add-to-cart:hover {
-            background-color: #218838;
+        .product-card h3 {
+            font-size: 18px;
+            margin-top: 10px;
         }
         .discount {
             text-decoration: line-through;
             color: red;
             font-size: 14px;
-            margin-left: 8px;
+        }
+        .add-to-cart {
+            background-color: #f1c40f;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
+            padding: 15px;
             background-color: #111;
             color: white;
         }
@@ -169,12 +152,12 @@
         <div class="navbar">
             <h1 class="logo">GADGET</h1>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="wishlist.html">Wishlist</a>
-                <a href="results.html">Deals</a>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+                <a href="/results">Deals</a>
                 <a href="#">Contact Us</a>
             </nav>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <a href="/backend/views/login.ejs" class="sign-in">Sign In</a>
         </div>
     </header>
 
@@ -182,46 +165,34 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <h2>Your Trusted Gadgets Device Partner</h2>
-                <p>Find the best deals on top gadgets.</p>
+                <h2><%= heroTitle %></h2>
+                <p><%= heroSubtitle %></p>
                 <button class="cta-button">Explore Now</button>
             </div>
             <div class="hero-image">
-                <img src="https://cdn.dribbble.com/userupload/20190595/file/original-e4ef110c930aa3ed1b854934558a8fd4.gif" alt="Gadgets Showcase">
+                <img src="<%= heroImage %>" alt="Gadgets Showcase">
             </div>
         </section>
 
         <!-- Categories Section -->
         <section class="categories">
-            <div class="category">📱 Mobile</div>
-            <div class="category">🎧 Audio</div>
-            <div class="category">🖥️ Computer</div>
-            <div class="category">🕹️ Gaming</div>
-            <div class="category">📷 Camera</div>
+            <% categories.forEach(category => { %>
+                <div class="category"><%= category.emoji %> <%= category.name %></div>
+            <% }) %>
         </section>
 
         <!-- Deal of the Day -->
         <section class="deals">
             <h2>Deal of the Day</h2>
             <div class="product-list">
-                <div class="product-card">
-                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/23241662/2024/2/1/5a0c17bf-8f52-49e1-a29a-39e9e979be7a1706781353663-NOISE-Buds-Aero-Truly-Wireless-Earbuds-with-45hrs-Playtime-a-14.jpg" alt="Product">
-                    <h3>Wireless Earbuds</h3>
-                    <p>$28 <span class="discount">$40</span></p>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <img src="https://5.imimg.com/data5/ZI/QV/LH/SELLER-12479946/amazon-echo-white-500x500.jpg" alt="Product">
-                    <h3>Smart Speaker</h3>
-                    <p>$59 <span class="discount">$80</span></p>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <img src="https://i.pinimg.com/736x/dd/ec/ae/ddecae1853b219122b1b6083b696ec03.jpg" alt="Product">
-                    <h3>Gaming Headset</h3>
-                    <p>$99 <span class="discount">$120</span></p>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                        <h3><%= product.name %></h3>
+                        <p>$<%= product.price %> <span class="discount">$<%= product.originalPrice %></span></p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                <% }) %>
             </div>
         </section>
     </main>
@@ -229,7 +200,5 @@
     <footer>
         <p>&copy; 2025 Gadget Tracker. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script> <!-- Link to JavaScript -->
 </body>
 </html>
