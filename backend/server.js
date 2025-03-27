@@ -18,9 +18,9 @@ app.get('/', (req, res) => {
             { name: 'Camera', emoji: '📷' }
         ],
         products: [
-            { name: 'Wireless Earbuds', price: 28, originalPrice: 40, image: 'https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/23241662/2024/2/1/5a0c17bf-8f52-49e1-a29a-39e9e979be7a1706781353663-NOISE-Buds-Aero-Truly-Wireless-Earbuds-with-45hrs-Playtime-a-14.jpg' },
-            { name: 'Smart Speaker', price: 59, originalPrice: 80, image: 'https://5.imimg.com/data5/ZI/QV/LH/SELLER-12479946/amazon-echo-white-500x500.jpg' },
-            { name: 'Gaming Headset', price: 99, originalPrice: 120, image: 'https://i.pinimg.com/736x/dd/ec/ae/ddecae1853b219122b1b6083b696ec03.jpg' }
+            { name: 'Wireless Earbuds', price: 28, originalPrice: 40, image: 'https://i.pinimg.com/736x/9d/1f/06/9d1f06606fa55988738ee5f4569a6481.jpg' },
+            { name: 'Smart Speaker', price: 59, originalPrice: 80, image: 'https://i.pinimg.com/736x/7c/bc/fa/7cbcfa9c4131300069e502776b3827a6.jpg' },
+            { name: 'Gaming Headset', price: 99, originalPrice: 120, image: 'https://i.pinimg.com/736x/75/71/36/75713637d583deb96c7518087a34475a.jpg' }
         ]
     });
 });
