@@ -10,23 +10,55 @@
         /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #000;
+        }
+
+        /* Split Screen Layout */
+        .container {
+            display: flex;
+            width: 100%;
             height: 100vh;
         }
 
+        .left-section {
+            width: 40%;
+            background: linear-gradient(to right, #f1c40f, #d4a00f);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .left-section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .right-section {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+        }
+
         .login-container {
-            background-color: white;
+            background: #222;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            color: white;
         }
 
         h2 {
@@ -47,9 +79,11 @@
         input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: none;
             border-radius: 5px;
             font-size: 16px;
+            background: #333;
+            color: white;
         }
 
         .error-message {
@@ -81,7 +115,7 @@
         }
 
         .signup-link a {
-            color: #007bff;
+            color: #f1c40f;
             text-decoration: none;
         }
 
@@ -92,28 +126,41 @@
 </head>
 <body>
 
-    <div class="login-container">
-        <h2>Login</h2>
-
-        <% if (errorMessage) { %>
-            <p class="error-message"><%= errorMessage %></p>
-        <% } %>
-
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div>
+                <h2>Easy way to buy your favourite gadgets.</h2>
+                <p>Buy your gadgets in your price preferences.</p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required placeholder="Enter your password">
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="login-container">
+                <h2>Login</h2>
+
+                <% if (errorMessage) { %>
+                    <p class="error-message"><%= errorMessage %></p>
+                <% } %>
+
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+
+                <p class="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
             </div>
-
-            <button type="submit" class="login-btn">Login</button>
-        </form>
-
-        <p class="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
+        </div>
     </div>
 
 </body>
