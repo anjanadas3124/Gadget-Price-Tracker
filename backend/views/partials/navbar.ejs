@@ -1,5 +1,56 @@
-<nav style="background: #222; padding: 10px;">
-    <a href="/" style="color: white; text-decoration: none; font-size: 20px;">🏠 Home</a>
-    <a href="/login" style="color: white; text-decoration: none; margin-left: 20px;">🔑 Login</a>
-    <a href="/signup" style="color: white; text-decoration: none; margin-left: 20px;">📝 Signup</a>
-</nav>
+<style>
+    /* Navbar */
+    .navbar {
+        position: fixed; /* Make it fixed at the top */
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #111;
+        padding: 15px 20px;
+        color: white;
+        z-index: 1000; /* Ensure it stays above other elements */
+    }
+    
+    .navbar .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .navbar nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 18px;
+    }
+    
+    .sign-in {
+        background-color: #f1c40f;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    
+    /* Ensure body content doesn't overlap with the navbar */
+    body {
+        padding-top: 70px; /* Adjust based on navbar height */
+    }
+    </style>
+    
+    <header>
+        <div class="navbar">
+            <h1 class="logo">GADGET</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+                <a href="/results">Deals</a>
+                <a href="#">Contact Us</a>
+            </nav>
+            <a href="/login" class="sign-in">Sign In</a>
+        </div>
+    </header>
+    
