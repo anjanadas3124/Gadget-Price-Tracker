@@ -1,27 +1,45 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
-app.set('view engine', 'ejs'); 
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/gadgetTracker', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
+
+// User Schema
+const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
+const User = mongoose.model('User', userSchema);
+
+// Middleware
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-
-// Configure Session Middleware
 app.use(
     session({
-        secret: 'your_secret_key', // Change this to a secure key
+        secret: process.env.SESSION_SECRET || 'your_secret_key',
         resave: false,
-        saveUninitialized: true,
-        cookie: { secure: false } // Set `true` if using HTTPS
+        saveUninitialized: false,
+        cookie: { 
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        }
     })
 );
 
-// Temporary user storage (Replace with a database in production)
-const users = [];
-
-// Home Route
-app.get('/', (req, res) => {
+// Routes
+app.get('/', async (req, res) => {
     res.render('index', {
         title: 'Gadget Price Tracker',
         heroTitle: 'Your Trusted Gadgets Device Partner',
@@ -39,7 +57,7 @@ app.get('/', (req, res) => {
             { name: 'Smart Speaker', price: 59, originalPrice: 80, image: 'https://i.pinimg.com/736x/7c/bc/fa/7cbcfa9c4131300069e502776b3827a6.jpg' },
             { name: 'Gaming Headset', price: 99, originalPrice: 120, image: 'https://i.pinimg.com/736x/75/71/36/75713637d583deb96c7518087a34475a.jpg' }
         ],
-        user: req.session.user // Pass user session to the frontend
+        user: req.session.user
     });
 });
 
@@ -49,22 +67,27 @@ app.get('/signup', (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
+    const { newEmail: email, newPassword: password } = req.body;
 
     if (!email || !password) {
         return res.render('signup', { signupError: 'Email and password are required.' });
     }
 
-    if (users.some(user => user.email === email)) {
-        return res.render('signup', { signupError: 'Email already taken.' });
-    }
-
     try {
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash password
-        users.push({ email, password: hashedPassword }); // Store hashed password
-        res.redirect('/login'); // Redirect to login
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.render('signup', { signupError: 'Email already taken.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ email, password: hashedPassword });
+        await newUser.save();
+        res.redirect('/login');
     } catch (error) {
-        res.status(500).send('Error signing up. Try again.');
+        console.error('Signup error:', error);
+        res.status(500).render('signup', { 
+            signupError: 'Error creating account. Please try again.' 
+        });
     }
 });
 
@@ -80,39 +103,54 @@ app.post('/login', async (req, res) => {
         return res.render('login', { errorMessage: 'Email and password are required.' });
     }
 
-    const user = users.find(u => u.email === email);
-    if (!user) {
-        return res.render('login', { errorMessage: 'Invalid email or password.' });
-    }
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.render('login', { errorMessage: 'Invalid email or password.' });
+        }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-        return res.render('login', { errorMessage: 'Invalid email or password.' });
-    }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.render('login', { errorMessage: 'Invalid email or password.' });
+        }
 
-    req.session.user = user; // Store user in session
-    res.redirect('/'); // Redirect to homepage
+        req.session.user = { 
+            id: user._id,
+            email: user.email,
+            createdAt: user.createdAt
+        };
+        res.redirect('/');
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).render('login', { 
+            errorMessage: 'Error during login. Please try again.' 
+        });
+    }
 });
 
 // Logout Route
 app.get('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/login'); // Redirect to login after logout
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Logout error:', err);
+            return res.redirect('/');
+        }
+        res.redirect('/login');
     });
 });
 
-// 404 Error Handling
+// Error Handlers
 app.use((req, res) => {
-    res.status(404).send('Page Not Found');
+    res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-// Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something went wrong!');
+    res.status(500).render('500', { title: 'Server Error' });
 });
 
 // Start Server
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
