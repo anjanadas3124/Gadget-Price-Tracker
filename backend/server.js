@@ -61,6 +61,16 @@ app.get('/', async (req, res) => {
     });
 });
 
+app.get('/products', (req, res) => {
+    const products = [
+        { name: "Wireless Earbuds", price: 28, image: "/images/earbuds1.jpg" },
+        { name: "Noise Cancelling Earbuds", price: 40, image: "/images/earbuds2.jpg" },
+        { name: "Gaming Earbuds", price: 55, image: "/images/earbuds3.jpg" },
+        { name: "Sports Earbuds", price: 35, image: "/images/earbuds4.jpg" }
+    ];
+    res.render('products', { title: "Products", products });
+});
+
 // Signup Routes
 app.get('/signup', (req, res) => {
     res.render('signup', { signupError: null });
