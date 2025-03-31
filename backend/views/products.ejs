@@ -121,9 +121,9 @@
             <div class="product-list">
                 <% let laptops = [
                     { name: 'Dell XPS 13', price: 999, originalPrice: 1199, image: 'https://i.pinimg.com/736x/39/2a/c4/392ac4f4ccc8d69573fcd692ecde61a5.jpg' },
-                    { name: 'MacBook Air', price: 1099, originalPrice: 1299, image: 'https://via.placeholder.com/300' },
-                    { name: 'HP Spectre x360', price: 1249, originalPrice: 1499, image: 'https://via.placeholder.com/300' },
-                    { name: 'Lenovo ThinkPad X1', price: 1399, originalPrice: 1599, image: 'https://via.placeholder.com/300' }
+                    { name: 'MacBook Air', price: 1099, originalPrice: 1299, image: 'https://i.pinimg.com/736x/2b/7f/89/2b7f899a42a031494ac9423c4109a047.jpg' },
+                    { name: 'HP Spectre x360', price: 1249, originalPrice: 1499, image: 'https://i.pinimg.com/736x/1a/15/0a/1a150abf803653102201892ee1adea61.jpg' },
+                    { name: 'Lenovo ThinkPad X1', price: 1399, originalPrice: 1599, image: 'https://i.pinimg.com/736x/4f/fc/f7/4ffcf7655138de70bb1d8364803c6468.jpg' }
                 ]; %>
 
                 <% laptops.forEach(laptop => { %>
@@ -131,7 +131,7 @@
                         <img src="<%= laptop.image %>" alt="<%= laptop.name %>">
                         <h3><%= laptop.name %></h3>
                         <p>$<%= laptop.price %> <span class="discount">$<%= laptop.originalPrice %></span></p>
-                        <button class="add-to-cart">Buy Now</button>
+                        <button class="add-to-cart">Add to Cart</button>
                     </div>
                 <% }); %>
             </div>
@@ -141,10 +141,10 @@
             <h2>Mobiles</h2>
             <div class="product-list">
                 <% let mobiles = [
-                    { name: 'iPhone 14 Pro', price: 1099, originalPrice: 1299, image: 'https://via.placeholder.com/300' },
-                    { name: 'Samsung Galaxy S23', price: 999, originalPrice: 1199, image: 'https://via.placeholder.com/300' },
-                    { name: 'OnePlus 11', price: 749, originalPrice: 899, image: 'https://via.placeholder.com/300' },
-                    { name: 'Google Pixel 7 Pro', price: 899, originalPrice: 1099, image: 'https://via.placeholder.com/300' }
+                    { name: 'iPhone 14 Pro', price: 1099, originalPrice: 1299, image: 'https://iplanet.one/cdn/shop/files/iPhone_14_Pro_Gold_PDP_Image_Position-1a__WWEN.jpg?v=1691141053&width=1445' },
+                    { name: 'Samsung Galaxy S23', price: 999, originalPrice: 1199, image: 'https://images.samsung.com/is/image/samsung/p6pim/levant/2302/gallery/levant-galaxy-s23-s911-sm-s911blicmea-534843692?$684_547_PNG$' },
+                    { name: 'OnePlus 11', price: 749, originalPrice: 899, image: 'https://www.xparts.in/wp-content/uploads/2024/05/OnePlus-11-5G-Back-Housing.png' },
+                    { name: 'Google Pixel 7 Pro', price: 899, originalPrice: 1099, image: 'https://rukminim3.flixcart.com/image/850/1000/xif0q/mobile/t/u/m/-original-imaggsuehy3nyj3b.jpeg?q=90&crop=false' }
                 ]; %>
 
                 <% mobiles.forEach(mobile => { %>
@@ -152,7 +152,7 @@
                         <img src="<%= mobile.image %>" alt="<%= mobile.name %>">
                         <h3><%= mobile.name %></h3>
                         <p>$<%= mobile.price %> <span class="discount">$<%= mobile.originalPrice %></span></p>
-                        <button class="add-to-cart">Buy Now</button>
+                        <button class="add-to-cart">Add to Cart</button>
                     </div>
                 <% }); %>
             </div>
@@ -162,10 +162,10 @@
             <h2>Earbuds</h2>
             <div class="product-list">
                 <% let earbuds = [
-                    { name: 'Apple AirPods Pro', price: 249, originalPrice: 299, image: 'https://via.placeholder.com/300' },
-                    { name: 'Samsung Galaxy Buds2', price: 149, originalPrice: 199, image: 'https://via.placeholder.com/300' },
-                    { name: 'Sony WF-1000XM4', price: 279, originalPrice: 329, image: 'https://via.placeholder.com/300' },
-                    { name: 'Bose QuietComfort Earbuds', price: 199, originalPrice: 249, image: 'https://via.placeholder.com/300' }
+                    { name: 'Apple AirPods Pro', price: 249, originalPrice: 299, image: 'https://i.pinimg.com/736x/1c/27/b9/1c27b93a3d266294994944c471beb07a.jpg' },
+                    { name: 'Samsung Galaxy Buds2', price: 149, originalPrice: 199, image: 'https://i.pinimg.com/736x/77/c7/8d/77c78df4d4c4e03dd4e6b11d7335bb55.jpg' },
+                    { name: 'Sony WF-1000XM4', price: 279, originalPrice: 329, image: 'https://i.pinimg.com/736x/ce/d6/5d/ced65d7f649165eead652544935e87e9.jpg' },
+                    { name: 'boAt Airdopes 311 Pro', price: 199, originalPrice: 249, image: 'https://i.pinimg.com/736x/78/d4/f4/78d4f4b1baa23819e0fc8dcdda1ed3ee.jpg' }
                 ]; %>
 
                 <% earbuds.forEach(earbud => { %>
@@ -173,7 +173,7 @@
                         <img src="<%= earbud.image %>" alt="<%= earbud.name %>">
                         <h3><%= earbud.name %></h3>
                         <p>$<%= earbud.price %> <span class="discount">$<%= earbud.originalPrice %></span></p>
-                        <button class="add-to-cart">Buy Now</button>
+                        <button class="add-to-cart">Add to Cart</button>
                     </div>
                 <% }); %>
             </div>

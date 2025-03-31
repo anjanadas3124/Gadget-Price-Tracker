@@ -55,7 +55,9 @@ app.get('/', async (req, res) => {
         products: [
             { name: 'Wireless Earbuds', price: 28, originalPrice: 40, image: 'https://i.pinimg.com/736x/9d/1f/06/9d1f06606fa55988738ee5f4569a6481.jpg' },
             { name: 'Smart Speaker', price: 59, originalPrice: 80, image: 'https://i.pinimg.com/736x/7c/bc/fa/7cbcfa9c4131300069e502776b3827a6.jpg' },
-            { name: 'Gaming Headset', price: 99, originalPrice: 120, image: 'https://i.pinimg.com/736x/75/71/36/75713637d583deb96c7518087a34475a.jpg' }
+            { name: 'Mobiles', price: 99, originalPrice: 120, image: 'https://www.rajanandco.in/pub/media/catalog/product/cache/bec761d54e398ba11dc5e3b7a5b5a37a/v/i/vivo_m11.jpg' },
+            { name: 'Laptops', price: 99, originalPrice: 120, image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/202408/asus-zenbook-s16-275442374-16x9_0.jpg?VersionId=iIiE1tP4hXggJACnpWjUf1GqZNZz2xe8&size=690:388' }
+
         ],
         user: req.session.user
     });
