@@ -1,0 +1,165 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <h1 class="mb-4">Your Shopping Cart</h1>
+  
+  <% if (cart.items.length === 0) { %>
+    <div class="alert alert-info">
+      Your cart is empty. <a href="/products" class="alert-link">Continue shopping</a>
+    </div>
+  <% } else { %>
+    <div class="row">
+      <div class="col-md-8">
+        <% cart.items.forEach(item => { %>
+          <div class="card mb-3 cart-item" data-id="<%= item.product._id %>">
+            <div class="row g-0">
+              <div class="col-md-3">
+                <img src="<%= item.product.image %>" class="img-fluid rounded-start" alt="<%= item.product.name %>">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title"><%= item.product.name %></h5>
+                  <p class="card-text">$<%= item.price.toFixed(2) %></p>
+                  <p class="text-muted">In Stock</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                  <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary minus-btn">-</button>
+                    <input type="number" min="1" class="form-control text-center quantity-input" 
+                           value="<%= item.quantity %>">
+                    <button class="btn btn-outline-secondary plus-btn">+</button>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">$<%= (item.price * item.quantity).toFixed(2) %></span>
+                    <button class="btn btn-sm btn-outline-danger remove-btn">
+                      <i class="bi bi-trash"></i> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card sticky-top" style="top: 20px;">
+          <div class="card-body">
+            <h5 class="card-title">Order Summary</h5>
+            <hr>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal (<%= cart.items.reduce((sum, item) => sum + item.quantity, 0) %> items):</span>
+              <span>$<%= (cart.total * 0.9).toFixed(2) %></span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping:</span>
+              <span class="text-success">Free</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tax (10%):</span>
+              <span>$<%= (cart.total * 0.1).toFixed(2) %></span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
+              <span>Total:</span>
+              <span>$<%= cart.total.toFixed(2) %></span>
+            </div>
+            <button class="btn btn-primary w-100 py-2 mb-2">Proceed to Checkout</button>
+            <div class="text-center">
+              <small class="text-muted">or</small>
+              <a href="/products" class="d-block mt-2">Continue Shopping</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Quantity controls
+      document.querySelectorAll('.plus-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const input = this.parentElement.querySelector('.quantity-input');
+          input.value = parseInt(input.value) + 1;
+          updateCartItem(this.closest('.cart-item'));
+        });
+      });
+
+      document.querySelectorAll('.minus-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const input = this.parentElement.querySelector('.quantity-input');
+          if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateCartItem(this.closest('.cart-item'));
+          }
+        });
+      });
+
+      // Quantity input change
+      document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('change', function() {
+          if (parseInt(this.value) < 1) this.value = 1;
+          updateCartItem(this.closest('.cart-item'));
+        });
+      });
+
+      // Remove item
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const cartItem = this.closest('.cart-item');
+          removeCartItem(cartItem);
+        });
+      });
+
+      // Update cart item function
+      function updateCartItem(cartItem) {
+        const productId = cartItem.dataset.id;
+        const quantity = parseInt(cartItem.querySelector('.quantity-input').value);
+
+        fetch('/api/cart/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            productId,
+            quantity
+          })
+        })
+        .then(response => {
+          if (response.ok) {
+            location.reload(); // Refresh to show updated totals
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
+
+      // Remove cart item function
+      function removeCartItem(cartItem) {
+        const productId = cartItem.dataset.id;
+
+        fetch('/api/cart/remove', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            productId
+          })
+        })
+        .then(response => {
+          if (response.ok) {
+            cartItem.remove();
+            location.reload(); // Refresh to show updated totals
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
+    });
+  </script>
+</div>
+
+<%- include('partials/footer') %>
