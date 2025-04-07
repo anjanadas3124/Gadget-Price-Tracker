@@ -10,11 +10,11 @@ const cartItemSchema = new mongoose.Schema({
     type: Number, 
     required: true, 
     default: 1,
-    min: 1 
+    min: [1, 'Quantity must be at least 1']
   },
   price: {
     type: Number,
-    required: true
+    required: [true, 'Price is required']
   }
 }, { _id: false });
 
@@ -41,10 +41,19 @@ const cartSchema = new mongoose.Schema({
 });
 
 // Update total before saving
-cartSchema.pre('save', function(next) {
-  this.total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  this.updatedAt = Date.now();
-  next();
+cartSchema.pre('save', function (next) {
+  try {
+    this.total = this.items.reduce((sum, item) => {
+      const price = item.price ?? 0;
+      const quantity = item.quantity ?? 1;
+      return sum + (price * quantity);
+    }, 0);
+    this.updatedAt = Date.now();
+    next();
+  } catch (err) {
+    console.error('Cart pre-save error:', err);
+    next(err);
+  }
 });
 
 module.exports = mongoose.model('Cart', cartSchema);

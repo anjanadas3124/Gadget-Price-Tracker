@@ -139,7 +139,7 @@
                 <a href="/">Home</a>
                 <a href="/cart">Cart <span id="cartCount" class="cart-count">0</span></a>
                 <a href="/results">Deals</a>
-                <a href="#">Contact Us</a>
+                <a href="/contact">Contact Us</a>
             </nav>
             <a href="/login" class="sign-in">Sign In</a>
         </div>
@@ -262,9 +262,10 @@
                     // Provide visual feedback on the button
                     this.textContent = 'Added!';
                     this.style.backgroundColor = '#4CAF50';
+                    
+                    // Navigate to cart page after 1 second
                     setTimeout(() => {
-                        this.textContent = 'Add to Cart';
-                        this.style.backgroundColor = '#f1c40f';
+                        window.location.href = '/cart';
                     }, 1000);
                 });
             });
